@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Infante;
+use App\Models\Area;
 use Illuminate\Http\Request;
+
 
 class InfanteController extends Controller
 {
@@ -15,7 +17,8 @@ class InfanteController extends Controller
     public function index()
     {
         $infantes = Infante::paginate(5);
-        return view('infantes.index', compact('infantes'));
+        $areas = Area::all();
+        return view('infantes.index', compact('infantes', 'areas')); 
     }
 
     /**
@@ -121,4 +124,5 @@ class InfanteController extends Controller
         Infante::find($id);
         return redirect()->route('infantes.index');
     }
+
 }

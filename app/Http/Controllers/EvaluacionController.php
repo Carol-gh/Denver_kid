@@ -89,4 +89,15 @@ class EvaluacionController extends Controller
     {
         //
     }
+
+    public function evaluar($area)   
+    {
+    // Lógica para evaluar el infante
+    $infante = Infante::find($infante);
+    
+    // Obtener todas las áreas
+    $areas = Area::all();
+    // Retornar la vista de evaluación con los datos necesarios
+    return view('evaluaciones.create', compact('infante', 'areas'));
+    }
 }
