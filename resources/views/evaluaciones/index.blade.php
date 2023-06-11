@@ -4,9 +4,13 @@
 @endsection
 @section('content')
     <section class="section">
-        <div class="section-header">
-            <h3 class="page__heading">Evaluaciones</h3>
+        <div class="section-header" style="display: flex; justify-content: space-between;">
+                <h3 class="page__heading">Evaluaciones</h3>
+            <div class="text-right">
+                <a class="btn btn-primary" href="{{ route('evaluaciones.create') }}">Crear Evaluación</a>
+            </div>
         </div>
+
         <div class="section-body">
             <div class="row">
                 <div class="col-lg-12">
