@@ -21,7 +21,8 @@ class Infante extends Model
         'sala',
         'nombreMadre',
         'nombrePadre',
-        'telefonoEmergencia'
+        'telefonoEmergencia',
+        'userId','userId'
     ];
 
     public function evaluaciones() {

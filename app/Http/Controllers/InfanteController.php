@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Infante;
 use App\Models\Area;
 use Illuminate\Http\Request;
-
-
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 class InfanteController extends Controller
 {
     /**
@@ -28,7 +28,8 @@ class InfanteController extends Controller
      */
     public function create()
     {
-        return view('infantes.crear');
+        $usuario=User::all();
+        return view('infantes.crear',compact('usuario'));
     }
 
     /**
@@ -49,11 +50,31 @@ class InfanteController extends Controller
             'sala' => 'required',
             'nombreMadre' => 'required',
             'nombrePadre' => 'required',
-            'telefonoEmergencia' => 'required'
+            'telefonoEmergencia' => 'required',
+            'email' => 'required|email|unique:users,email'
+
         ]);
 
-        $input = $request->all();
-        Infante::create($input);
+        $user = new User();
+        $user->name = $request->input('nombre');
+        $user->email = $request->input('email');
+        $user->password = bcrypt($request->input('nombre'));
+        $user->save();
+        $user->assignRole('Padre');
+
+        $infante= new Infante();
+        $infante->nombre = $request->input('nombre');
+        $infante->apellidoPaterno = $request->input('apellidoPaterno');
+        $infante->apellidoMaterno = $request->input('apellidoMaterno');
+        $infante->edad = $request->input('edad');
+        $infante->sexo = $request->input('sexo');
+        $infante->fechaNacimiento = $request->input('fechaNacimiento');
+        $infante->sala = $request->input('sala');
+        $infante->nombreMadre = $request->input('nombreMadre');
+        $infante->nombrePadre = $request->input('nombrePadre');
+        $infante->telefonoEmergencia = $request->input('telefonoEmergencia');
+        $infante->userId = $user->id;
+        $infante->save();
 
         return redirect()->route('infantes.index');
     }
@@ -121,7 +142,7 @@ class InfanteController extends Controller
      */
     public function destroy($id)
     {
-        Infante::find($id);
+        Infante::destroy($id);
         return redirect()->route('infantes.index');
     }
 

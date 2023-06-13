@@ -241,7 +241,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="card h-100">
                         <div class="card-header pb-0">
-                            <h6>Escala Abreviada de Desarrollo</h6>
+                            <h6>Escala Abreviada de Desarrollo "Denver"</h6>
                         </div>
                         <div class="card-body p-3">
                             <div class="timeline timeline-one-side">

@@ -26,6 +26,8 @@ return new class extends Migration
             $table->string('nombrePadre')->nullable();
             $table->string('telefonoEmergencia')->nullable();
             $table->string('sala')->nullable();
+            $table->unsignedBigInteger('userId');
+            $table->foreign('userId')->on('users')->references('id')->onDelete('cascade');
             $table->timestamps();
         });
     }
