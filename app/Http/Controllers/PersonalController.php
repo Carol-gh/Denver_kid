@@ -31,6 +31,7 @@ class PersonalController extends Controller
      */
     public function create()
     {
+        //$usuario=User::all();
         $roles = Role::pluck('name','name')->all();
         return view('personal.crear', compact('roles'));
     }

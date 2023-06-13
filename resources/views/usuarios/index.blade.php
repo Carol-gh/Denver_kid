@@ -13,7 +13,7 @@
                             <a class="btn btn-warning" href="{{ route('usuarios.create') }}">Nuevo</a>
 
                             <table class="table table-striped mt-2">
-                                <thead style="background-color:#5B5188">
+                                <thead style="background-color:#FF00FF">
                                     <th style="display: none;">ID</th>
                                     <th style="color:#fff;">Nombre</th>
                                     <th style="color:#fff;">E-mail</th>

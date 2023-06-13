@@ -22,11 +22,9 @@ return new class extends Migration
             $table->string('cargo')->nullable();
             $table->string('sala')->nullable();
             $table->unsignedBigInteger('userId');
-            $table->timestamps();
-
-            $table->softDeletes();
-
             $table->foreign('userId')->on('users')->references('id')->onDelete('cascade');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

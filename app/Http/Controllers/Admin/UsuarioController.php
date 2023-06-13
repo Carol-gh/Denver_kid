@@ -90,13 +90,7 @@ class UsuarioController extends Controller
         return view('usuarios.editar',compact('user','roles','userRole'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function update(Request $request, $id)
     {
         $this->validate($request, [

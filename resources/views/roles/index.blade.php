@@ -14,7 +14,7 @@
                                 <a class="btn btn-warning" href="{{ route('roles.create') }}">Nuevo</a>
                             @endcan
                             <table class="table table-striped mt-2">
-                                <thead style="background-color:#5B5188">
+                                <thead style="background-color:#FF00FF">
                                     <th style="color:#fff;">Rol</th>
                                     <th style="color:#fff;">Acciones</th>
                                 </thead>

@@ -98,10 +98,20 @@
                                             {!! Form::text('nombrePadre', null, array('class'=>'form-control')) !!}
                                         </div>
                                     </div>
-                                    <div class="col-xs-3 col-sm-3 col-md-3">
+                    
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-xs-6 col-sm-6 col-md-6">
                                         <div class="form-group">
                                             <label for="telefonoEmergencia">Telefono de Emergencia</label>
                                             {!! Form::text('telefonoEmergencia', null, array('class'=>'form-control')) !!}
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6 col-sm-6 col-md-6">
+                                        <div class="form-group">
+                                            <label for="email">Email</label>
+                                            {!! Form::text('email', null, array('class'=>'form-control')) !!}
                                         </div>
                                     </div>
                                 </div>
