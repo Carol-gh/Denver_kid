@@ -11,7 +11,7 @@
             <div class="card mb-3" style="max-width: 740px;">
                 <div class="row g-0">
                     <div class="col-md-4">
-                        <img src="{{ asset('img/profile2.png') }}" class="img-fluid rounded-start"  style="height:90%;">
+                        <img src="{{ asset('img/prefile2.jpg') }}" class="img-fluid rounded-start"  style="height:90%;">
                     </div>
                     <div class="col-md-8">
                         <div class="card-body">
@@ -22,24 +22,32 @@
                                         {{ $evaluacion->infante->nombre }} {{ $evaluacion->infante->apellidoPaterno }} {{ $evaluacion->infante->apellidoMaterno }} <br>
                                         <label for="edad" class="col-form-label">Edad: </label>
                                         {{ $evaluacion->edadMeses }} meses<br>
-                                        <label for="altura" class="col-form-label">Altura: </label>
-                                        {{ $evaluacion->altura }} cm<br>
-                                        <label for="peso" class="col-form-label">Peso: </label>
-                                        {{ $evaluacion->peso }} gramos<br>
                                         <label for="fecha" class="col-form-label">Fecha de evaluación: </label>
                                         {{ $evaluacion->fecha }} <br>
                                         <label for="personal" class="col-form-label">Nombre del Evaluador: </label>
                                         {{ $evaluacion->personal->nombre }} <br>
                                         <label for="resultadoMG" class="col-form-label">Total Motricidad Gruesa: </label>
-                                        {{ $evaluacion->resultadoMG}}<br>
+                                        @foreach ($result as $mg)
+                                                <br>{{ $mg->id }}<br>
+                                        @endforeach
+                                        
                                         <label for="resultadoMG" class="col-form-label">Total Motricidad Fino Adaptativa: </label>
-                                        {{ $evaluacion->resultadoMF}}<br>
+                                        @foreach ($MF as $mf)
+                                                {{ $mf->pregunta }}
+                                                 <br>{{$MF}}<br>
+                                        @endforeach
+
                                         <label for="resultadoMG" class="col-form-label">Total Audición y Lenguaje: </label>
-                                        {{ $evaluacion->resultadoAL}}<br>
+                                        @foreach ($AL as $al)
+                                                {{ $al->pregunta}}
+                                                 <br>{{$AL}}<br>
+                                        @endforeach
+                                        
                                         <label for="resultadoMG" class="col-form-label">Total Personal Social: </label>
-                                        {{ $evaluacion->resultadoPS}}<br>
-                                        <label for="resultadoMG" class="col-form-label">Total: </label>
-                                        {{ $evaluacion->total}}<br>
+                                        @foreach ($PS as $ps)
+                                                {{ $ps->pregunta}}
+                                                 <br>{{$PS}}<br>
+                                        @endforeach
                                     </p>
                                 </div>
                             </p>

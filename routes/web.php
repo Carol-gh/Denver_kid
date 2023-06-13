@@ -34,7 +34,9 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('usuarios', UsuarioController::class);
     Route::resource('evaluaciones', EvaluacionController::class);
     Route::post('change-password', [App\Http\Controllers\HomeController::class, 'updatePassword'])->name('updatePassword');
-    Route::get('/evaluar/{id}', [App\Http\Controllers\PreguntasController::class, 'evaluar'])->name('evaluar');
+    Route::get('/evaluar/{id}', [App\Http\Controllers\EvaluacionController::class, 'evaluar'])->name('evaluar');
+    Route::get('/preguntas/{areaId}/{evaluacionId}', [App\Http\Controllers\PreguntasController::class, 'getItem'])->name('preguntas');
+    Route::post('/guardar_respuestas/{evaluacionId}', [App\Http\Controllers\PreguntasController::class, 'respuestas'])->name('guardar_respuestas');
 });
 Auth::routes();
 
