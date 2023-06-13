@@ -21,8 +21,8 @@ class AreaSeeder extends Seeder
         ]);
 
         Area::create([
-            'nombre' => 'MOTRICIDAD FINO ADAPTATIVA',
-            'siglas' => 'MFA'
+            'nombre' => 'MOTRICIDAD FINA',
+            'siglas' => 'MF'
         ]);
 
         Area::create([

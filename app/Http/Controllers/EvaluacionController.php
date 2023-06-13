@@ -3,7 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Evaluacion;
+use App\Models\EvaluacionDenver;
+use App\Models\Infante;
+use App\Models\Personal;
+use App\Models\Area;
+use App\Models\ResultadoDenver;
+use Carbon\Carbon;
+use App\Models\Pregunta;
 
 class EvaluacionController extends Controller
 {
@@ -14,7 +20,7 @@ class EvaluacionController extends Controller
      */
     public function index()
     {
-        $evaluaciones = Evaluacion::paginate(5);
+        $evaluaciones = EvaluacionDenver::paginate(5);
         $evaluaciones->load('infante');
 
         return view('evaluaciones.index', compact('evaluaciones'));
@@ -49,11 +55,24 @@ class EvaluacionController extends Controller
      */
     public function show($id)
     {
-        $evaluacion = Evaluacion::find($id);
+        $evaluacion = EvaluacionDenver::find($id);
         $evaluacion->load('personal');
         $evaluacion->load('infante');
-
-        return view('evaluaciones.ver',compact('evaluacion'));
+        $result = ResultadoDenver::where('evaluacionId', $id)->where('denverescalaId', 1)->get();
+        $MG = Pregunta::whereIn('id', $result->pluck('preguntaId'))
+        ->where('areaId', 1)
+        ->get();
+        $MF = Pregunta::whereIn('id', $result->pluck('preguntaId'))
+        ->where('areaId', 2)
+        ->get();
+        $AL =  Pregunta::whereIn('id', $result->pluck('preguntaId'))
+        ->where('areaId', 3)
+        ->get();
+        $PS =  Pregunta::whereIn('id', $result->pluck('preguntaId'))
+        ->where('areaId', 4)
+        ->get();
+    
+        return view('evaluaciones.ver',compact('evaluacion', 'MG', 'MF', 'AL', 'PS'));
     }
 
     /**
@@ -90,14 +109,16 @@ class EvaluacionController extends Controller
         //
     }
 
-    public function evaluar($area)   
+    public function evaluar($id)
     {
-    // Lógica para evaluar el infante
-    $infante = Infante::find($infante);
-    
-    // Obtener todas las áreas
-    $areas = Area::all();
-    // Retornar la vista de evaluación con los datos necesarios
-    return view('evaluaciones.create', compact('infante', 'areas'));
+        $infante = Infante::findOrFail($id);
+        $evaluaciondenver = new EvaluacionDenver();
+        $evaluaciondenver->fecha = Carbon::now();
+        $evaluaciondenver->edadMeses = $infante->edad;
+        $evaluaciondenver->personalId = Personal::where('userId', auth()->user()->id)->first()->id;
+        $evaluaciondenver->infanteId = $id;
+        $evaluaciondenver->save();
+        $areas=Area::all();
+        return view('evaluaciones.areas', compact('evaluaciondenver', 'areas'));
     }
 }

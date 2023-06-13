@@ -1,77 +1,146 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Formulario Flotante</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  <style>
-    /* Estilo del botón */
-    .button {
-      display: inline-block;
-      padding: 10px 20px;
-      background-color: #337ab7;
-      color: #fff;
-      border: none;
-      cursor: pointer;
+<style>
+    body {
+        background-color: #f8f8f8;
+        font-family: Arial, sans-serif;
     }
 
-    /* Estilo del formulario flotante */
-    .floating-form {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background-color: #f1f1f1;
-      padding: 20px;
-      border-radius: 5px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-      display: none; /* El formulario estará oculto inicialmente */
+    .form-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-image: url('{{ asset('img/login2.jpg') }}');
+        background-size: cover;
+        background-position: center;
+        position: relative;
     }
 
-    /* Estilo del icono */
-    .icon {
-      font-size: 20px;
-      cursor: pointer;
-      position: absolute;
-      top: 10px;
-      right: 10px;
-    }
-  </style>
-</head>
-<body>
-  <button class="button" onclick="openForm()">Abrir formulario</button>
-
-  <div class="floating-form" id="myForm">
-    <i class="fas fa-times icon" onclick="closeForm()"></i> <!-- Icono para cerrar el formulario -->
-    <h2>Formulario</h2>
-    <form>
-      <!-- Aquí van los campos del formulario -->
-      <label for="nombre">Nombre:</label>
-      <input type="text" id="nombre" name="nombre" required>
-
-      <label for="email">Email:</label>
-      <input type="email" id="email" name="email" required>
-
-      <input type="submit" value="Enviar">
-    </form>
-  </div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
-  <script>
-    function openForm() {
-      // Obtener el elemento del formulario
-      var form = document.getElementById("myForm");
-
-      // Mostrar el formulario
-      form.style.display = "block";
+    .form-content {
+        background-color: rgba(255, 255, 255, 0.9);
+        padding: 40px;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: 600px;
+        width: 100%;
+        height: 600px; /* Ajusta la altura según tus necesidades */
     }
 
-    function closeForm() {
-      // Obtener el elemento del formulario
-      var form = document.getElementById("myForm");
-
-      // Ocultar el formulario
-      form.style.display = "none";
+    .form-title {
+        font-size: 28px;
+        margin-bottom: 30px;
+        color: #333;
     }
-  </script>
-</body>
-</html>
+
+    .question {
+        margin-bottom: 30px;
+        text-align: left;
+    }
+
+    .question h3 {
+        margin-bottom: 10px;
+        font-size: 18px;
+        color: #333;
+    }
+
+    .options {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .options li {
+        margin-right: 10px;
+    }
+
+    .options label {
+        display: inline-block;
+        background-color: #f1f1f1;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        color: #333;
+    }
+
+    .options label {
+        display: inline-block;
+        background-color: #f1f1f1;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        color: #333;
+    }
+
+    .options input[type="radio"] {
+        display: none;
+    }
+
+    .options label:hover,
+    .options input[type="radio"]:not(:disabled):checked + label {
+        background-color: #36a0f3;
+        color: #ffffff;
+    }
+
+
+    .form-button {
+        margin-top: 30px;
+        background-color: #36a0f3;
+        color: #ffffff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .form-footer {
+        background-color: #36a0f3;
+        padding: 20px 0;
+        text-align: center;
+    }
+
+    .form-footer p {
+        margin: 0;
+        color: #ffffff;
+    }
+
+    .form-decor {
+        position: absolute;
+        top: -30px;
+        left: -30px;
+        background-color: #36a0f3;
+        width: 60px;
+        height: 60px;
+        border-top-left-radius: 50%;
+        border-bottom-right-radius: 50%;
+    }
+</style>
+
+<div class="form-container">
+    <div class="form-decor"></div>
+    <div class="form-content">
+        <h1 class="form-title">Evaluación Denver</h1>
+
+        <form action="{{ route('guardar_respuestas', ['evaluacionId' => $evaluacionId]) }}" method="POST">
+            @csrf
+            <h2>{{$area->nombre}}</h2>
+            @foreach($preguntas as $pregunta)
+                <div class="question">
+                    <h3>{{ $pregunta->pregunta }}</h3>
+                    <ul class="options">
+                        @foreach($denverEscala as $opcion)
+                            <li>
+                                <input type="radio" name="pregunta_{{ $pregunta->id }}" value="{{ $opcion->etiqueta }}" id="opcion_{{ $pregunta->id }}_{{ $opcion->id }}">
+                                <label for="opcion_{{ $pregunta->id }}_{{ $opcion->id }}">{{ $opcion->etiqueta }}</label>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endforeach
+          <button type="submit" name="guardar_respuestas" class="btn btn-primary form-button">Guardar respuestas</button>
+        </form>
+    </div>
+</div>

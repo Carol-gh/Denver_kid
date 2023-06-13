@@ -18,14 +18,14 @@ class EscalaSeeder extends Seeder
         Escala::create([
             'etiqueta' => 'Alerta',
             'rangoInicial' => 0,
-            'rangoFinal' => 6,
+            'rangoFinal' => 3,
             'edadId' => 1
         ]);
 
         Escala::create([
             'etiqueta' => 'Medio',
-            'rangoInicial' => 7,
-            'rangoFinal' => 13,
+            'rangoInicial' => 4,
+            'rangoFinal' => 7,
             'edadId' => 1
         ]);
 
